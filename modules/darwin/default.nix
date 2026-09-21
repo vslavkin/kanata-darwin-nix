@@ -180,6 +180,17 @@ in
       )}
     '';
 
+    launchd.daemons."karabiner-daemon" = {
+    serviceConfig = {
+          Label = "com.pqrs.karabiner-daemon";
+          ProgramArguments = [
+            "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
+          ];
+          RunAtLoad = true;
+          KeepAlive = true;
+        };
+      };
+
     launchd.daemons = mapAttrs' (
       name: kb:
       nameValuePair "kanata-${name}" {
