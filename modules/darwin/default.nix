@@ -201,8 +201,7 @@ in
       }
     ) cfg.keyboards) // {
       "karabiner-daemon" = {
-        {
-    serviceConfig = {
+        serviceConfig = {
           Label = "com.pqrs.karabiner-daemon";
           ProgramArguments = [
             "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
@@ -210,8 +209,7 @@ in
           RunAtLoad = true;
           KeepAlive = true;
         };
-      }
-      }
+      };
     };
 
     launchd.agents = lib.filterAttrs (_: v: v != null) (
