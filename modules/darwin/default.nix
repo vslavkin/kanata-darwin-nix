@@ -180,18 +180,7 @@ in
       )}
     '';
 
-    launchd.daemons."karabiner-daemon" = {
-    serviceConfig = {
-          Label = "com.pqrs.karabiner-daemon";
-          ProgramArguments = [
-            "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
-          ];
-          RunAtLoad = true;
-          KeepAlive = true;
-        };
-      };
-
-    launchd.daemons = mapAttrs' (
+    launchd.daemons = (mapAttrs' (
       name: kb:
       nameValuePair "kanata-${name}" {
         serviceConfig = {
@@ -210,7 +199,20 @@ in
           StandardErrorPath = "/var/log/kanata-${name}.err.log";
         };
       }
-    ) cfg.keyboards;
+    ) cfg.keyboards) // {
+      "karabiner-daemon" = {
+        {
+    serviceConfig = {
+          Label = "com.pqrs.karabiner-daemon";
+          ProgramArguments = [
+            "/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon"
+          ];
+          RunAtLoad = true;
+          KeepAlive = true;
+        };
+      }
+      }
+    };
 
     launchd.agents = lib.filterAttrs (_: v: v != null) (
       mapAttrs' (
