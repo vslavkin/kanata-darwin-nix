@@ -29,7 +29,7 @@
       );
 
       overlays.default = _final: prev: {
-        inherit (self.packages.${prev.system}) kanata;
+        # inherit (self.packages.${prev.system}) kanata;
         inherit (self.packages.${prev.system}) kanata-vk-agent;
         inherit (self.packages.${prev.system}) karabiner-driverkit;
       };
