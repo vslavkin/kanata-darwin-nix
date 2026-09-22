@@ -186,7 +186,7 @@ in
         serviceConfig = {
           Label = "com.github.jtroo.kanata.${name}";
           ProgramArguments = [
-            "/Applications/kanata"
+            (lib.getExe config.services.kanata.package)
             "--cfg"
             (toString kb.configFile)
             "--port"
